@@ -190,27 +190,25 @@ function addClickListenersToTags(){
 
 addClickListenersToTags();
 
+
+
 function generateAuthors(){
 
   const articles = document.querySelectorAll(optArticleSelector);
+  console.log(articles);
 
-  for (let article of articles){
+  for (const article of articles){
 
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
-    const authorListWrapper = article.querySelector('.authors');
 
     const articleAuthor = article.getAttribute('data-author');
     console.log(articleAuthor);
 
-    const authorHTML = '<a href="#author-name=' + articleAuthor + '">by ' + articleAuthor + '</a>';
+    /*create author in article link*/
+    const authorHTML = '<a href="#author-' + articleAuthor + '">by ' + articleAuthor + '</a>';
 
     /*add author to the article*/
     authorWrapper.insertAdjacentHTML('beforeend', authorHTML);
-
-    /*create html to the author list*/
-
-    /*add to the authors list*/
-
   }
 }
 
