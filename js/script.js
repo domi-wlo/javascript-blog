@@ -213,3 +213,45 @@ function generateAuthors(){
 }
 
 generateAuthors();
+
+const authorClickHandler = function(event){
+  event.preventDefault();
+
+  const clickedElement = this;
+  console.log('Author name was clicked!');
+
+  const href = clickedElement.getAttribute('href');
+  const author = href.substring(8);
+  console.log('Clicked author: '+ author);
+
+  const activeAuthorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+
+  for (let authorLink of activeAuthorLinks){
+    authorLink.classList.remove('active');
+  }
+
+  const allAuthorLinks = document.querySelectorAll('a[href="' + href + '"]');
+
+  for (let link of allAuthorLinks){
+    link.classList.add('active');
+  }
+
+  generateTitleLinks('[data-author="' + author + '"]');
+};
+
+function addClickListenersToAuthors(){
+  /* find all links to tags */
+  const links = document.querySelectorAll('a[href^="#author-"]');
+  console.log(links);
+
+  /* START LOOP: for each link */
+  for(let link of links){
+
+    /* add tagClickHandler as event listener for that link */
+    link.addEventListener('click', authorClickHandler);
+
+  /* END LOOP: for each link */
+  }
+}
+
+addClickListenersToAuthors();
