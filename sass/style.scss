@@ -116,3 +116,30 @@ body {
     margin: 0 10px 0 0;
   }
 }
+
+/*Tags*/
+
+
+
+.tag-size-1 {
+  font-style: italic;
+}
+
+.tag-size-2 {
+  font-size: 120%;
+}
+
+.tag-size-3 {
+  font-size: 150%;
+}
+
+.tag-size-4 {
+  font-size: 200%;
+  font-style: bold;
+}
+
+.tags {
+  li {
+    display: inline;
+  }
+}
