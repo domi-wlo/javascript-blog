@@ -44,9 +44,10 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags .list',
+  optTagsListSelector = '.tags',
   optCloudClassCount = 3,
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.authors';
 
 function generateTitleLinks(customSelector = ''){
 
@@ -168,7 +169,7 @@ function generateTags(){
   }
 
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector('.tags');
+  const tagList = document.querySelector(optTagsListSelector);
 
   const tagsParams = calculateTagsParams(allTags);
   console.log('tagsParams:', tagsParams);
@@ -257,6 +258,8 @@ addClickListenersToTags();
 
 function generateAuthors(){
 
+  let allAuthors = {};
+
   const articles = document.querySelectorAll(optArticleSelector);
   console.log(articles);
 
@@ -270,12 +273,29 @@ function generateAuthors(){
     /*create author in article link*/
     const authorHTML = '<a href="#author-' + articleAuthor + '">by ' + articleAuthor + '</a>';
 
+    //add author to the list (only if it not there already)
+    if(!allAuthors[articleAuthor]) {
+      allAuthors[articleAuthor]=1;
+    } else {
+      allAuthors[articleAuthor]++;
+    }
+
     /*add author to the article*/
     authorWrapper.insertAdjacentHTML('beforeend', authorHTML);
   }
+
+  const authorsList = document.querySelector(optAuthorsListSelector);
+  let allAuthorsHTML = '';
+
+  for(let author in allAuthors){
+    allAuthorsHTML += '<li><a href="#author-' + author + '"><span class="author-name">'+ author + ' (' + allAuthors[author] + ')</span></a></li>';
+  }
+
+  authorsList.innerHTML = allAuthorsHTML;
 }
 
 generateAuthors();
+
 
 const authorClickHandler = function(event){
   event.preventDefault();
@@ -301,6 +321,7 @@ const authorClickHandler = function(event){
 
   generateTitleLinks('[data-author="' + author + '"]');
 };
+
 
 function addClickListenersToAuthors(){
 
